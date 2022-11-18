@@ -64,18 +64,32 @@ const char index_html[] PROGMEM = R"rawliteral(
      <div class="DHT">
         <h2>ESP8266 DHT Server</h2>
         <p>
-            <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
-            <span class="dht-labels">Temperature</span> 
-            <span id="temperature">%TEMPERATURE%</span>
-            <sup class="units">&deg;C</sup>
-        </p>
-        <p>
             <i class="fas fa-tint" style="color:#00add6;"></i> 
             <span class="dht-labels">Humidity</span>
             <span id="humidity">%HUMIDITY%</span>
             <sup class="units">%</sup>
          </p>
-    </div>
+
+     </div>       
+     <div class="DHT">
+        <h2>ESP8266 DHT Server</h2>
+        <p>
+            <i class="fas fa-thermometer-half" style="color:#059e8a;"></i> 
+            <span class="dht-labels">Temperature</span> 
+            <span id="temperature">%TEMPERATURE%</span>
+            <sup class="units">&deg;C</sup>
+        </p>
+     </div>    
+ 
+           <div class="DHT">
+        <h2>ESP8266 SOIL </h2>
+         <p>
+            <i class="fas fa-tint" style="color:#00add6;"></i> 
+            <span class="dht-labels">Soil_Moisture</span>
+            <span id="soil_moisture">%SOIL_MOISTURE%</span>
+            <sup class="units">%</sup>
+         </p>
+     </div>   
 </body>
 <script>
 setInterval(function ( ) {
@@ -99,6 +113,18 @@ setInterval(function ( ) {
   xhttp.open("GET", "/humidity", true);
   xhttp.send();
 }, 10000 ) ;
+
+setInterval(function ( ) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("soil_moisture").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "/soil_moisture", true);
+  xhttp.send();
+}, 10000 ) ;
 </script>
 </html>)rawliteral";  
+
 
